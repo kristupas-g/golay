@@ -39,7 +39,7 @@ for idx, message in enumerate(messages):
             continue
         print(f'Message no:{idx} failed out of {num_arrays} \n')
         print(f'Expected:\n{g.message.astype(int)}')
-        print(f'Received:\n{g.decoded_message}')
+        print(f'Received:\n{np.array(g.decoded_message).astype(int)}')
         break
 
 if transmissions_required != 0:
