@@ -33,13 +33,17 @@ transmissions_required = 0
 for idx, message in enumerate(messages):
     g = golay.Golay(message, error_rate)
 
-    if not np.array_equal(g.decoded_message, message): 
+    expected = g.message.astype(int)
+    received = np.array(g.decoded_message).astype(int)
+    if not np.array_equal(expected, received): 
         if g.transmissions_required > 0:
             transmissions_required += 1 
             continue
+
         print(f'Message no:{idx} failed out of {num_arrays} \n')
-        print(f'Expected:\n{g.message.astype(int)}')
-        print(f'Received:\n{np.array(g.decoded_message).astype(int)}')
+        print(f'Expected:\n{expected}')
+        print(f'Received:\n{received}\n')
+        print(f'Errors left {hamming_distance(expected, received)}')
         break
 
 if transmissions_required != 0:

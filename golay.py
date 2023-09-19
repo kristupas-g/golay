@@ -10,7 +10,9 @@ class Golay:
         self.padding_added = padding_added
         self.encoded_message = encoded_message
 
-        self.noisy_message = channel.randomize(encoded_message, error_rate)
+        error_idxs, noisy_message = channel.randomize(encoded_message, error_rate)
+        self.noisy_message = noisy_message
+        self.error_idxs = error_idxs
 
         decoded_message, transmissions_required = decoding.decode(self.noisy_message)
         self.decoded_message_with_padding = decoded_message

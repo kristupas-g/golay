@@ -6,14 +6,15 @@ def randomize(bit_array, error_rate):
     error_rate = round(error_rate, 4)
 
     result = []
-    for bit in bit_array:
+    error_idxs = []
+    for idx, bit in enumerate(bit_array):
         if random_chance() <= error_rate:
+            error_idxs.append(idx)
             bit = ~bit.astype(int) & 1 # This inverts the bit
         result += [bit]
     
-    return result
+    return (error_idxs, result)
 
 def random_chance():
     chance = random.uniform(0,1)
     return round(chance, 4)
-
